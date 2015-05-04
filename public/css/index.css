@@ -3,3 +3,48 @@ html {
   padding: 0;
   margin: 0;
 }
+#container {
+  width: 800px;
+  margin: 0 auto;
+}
+.meerkat {
+  /* remove this: */
+  margin: 0 auto;
+  position: relative;
+  height: 600px;
+  width: 400px;
+  background-image: url('http://assets.suricates.nl/export/pawprint_back/0.png');
+  background-size: 100%;
+}
+.meerkat .part {
+  position: absolute;
+  background-size: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.meerkat .head_fur {
+  z-index: 7;
+  background-image: url('http://assets.suricates.nl/export/head_fur.png');
+}
+.meerkat .eyes {
+  z-index: 10;
+  background-image: url('http://assets.suricates.nl/export/eyes.png');
+}
+.meerkat .eyes_fur {
+  z-index: 7;
+  background-image: url('http://assets.suricates.nl/export/eyes_fur.png');
+}
+.meerkat .snout {
+  z-index: 7;
+  background-image: url('http://assets.suricates.nl/export/happiness/0.png');
+}
+.meerkat .body {
+  z-index: 5;
+  background-image: url('http://assets.suricates.nl/export/fitness/0.png');
+}
+.meerkat .back_leg {
+  z-index: 3;
+  background-image: url('http://assets.suricates.nl/export/back_leg.png');
+}
