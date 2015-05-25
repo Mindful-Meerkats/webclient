@@ -21,7 +21,7 @@ gulp.task('less', function() {
 // Start and watch server.js
 gulp.task('server', function(){
 	nodemon({
-		script: 'index.js',
+		script: 'app.js',
 		ext: 'js',
 		env: { 'NODE_ENV': 'development' }
 	});

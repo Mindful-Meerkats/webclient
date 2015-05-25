@@ -1,0 +1,67 @@
+
+@borderColor: #DCDCDC;
+@darkRed: #CF0B00;
+@lightRed: #FF4136;
+@darkBlue: #0074D9;
+@lightBlue: lighten(@darkBlue, 10%);
+@fontStack: 'Lato', Helvetica ,sans-serif;
+
+// Animations
+
+@-webkit-keyframes formIn {
+	0%   {
+		opacity: 0;
+		transform: scale(.1);
+		-webkit-transform: scale(.1);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+		-webkit-transform: scale(1);
+	}
+ }
+@keyframes formIn {
+	0%   {
+		opacity: 0;
+		transform: scale(.1);
+		-webkit-transform: scale(.1);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1);
+		-webkit-transform: scale(1);
+	}
+}
+
+@-webkit-keyframes zoomSpin {
+	0%   {
+		transform: scale(1);
+		-webkit-transform: scale(1);
+		transform: rotate(0deg);
+		-webkit-transform: scale(0deg);
+	}
+	50% {
+		transform: scale(1.2);
+		-webkit-transform: scale(1.2);
+	}
+	100% {
+		transform: rotate(12deg);
+		-webkit-transform: scale(12deg);
+	}
+ }
+@keyframes zoomSpin {
+	0%   {
+		transform: scale(1);
+		-webkit-transform: scale(1);
+		transform: rotate(0deg);
+		-webkit-transform: scale(0deg);
+	}
+	50% {
+		transform: scale(1.2);
+		-webkit-transform: scale(1.2);
+	}
+	100% {
+		transform: rotate(12deg);
+		-webkit-transform: scale(12deg);
+	}
+}

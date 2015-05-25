@@ -7,6 +7,62 @@ html {
   width: 800px;
   margin: 0 auto;
 }
+@-webkit-keyframes formIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+    -webkit-transform: scale(0.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
+}
+@keyframes formIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+    -webkit-transform: scale(0.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
+}
+@-webkit-keyframes zoomSpin {
+  0% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: rotate(0deg);
+    -webkit-transform: scale(0deg);
+  }
+  50% {
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+  }
+  100% {
+    transform: rotate(12deg);
+    -webkit-transform: scale(12deg);
+  }
+}
+@keyframes zoomSpin {
+  0% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: rotate(0deg);
+    -webkit-transform: scale(0deg);
+  }
+  50% {
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+  }
+  100% {
+    transform: rotate(12deg);
+    -webkit-transform: scale(12deg);
+  }
+}
 .meerkat {
   /* remove this: */
   margin: 0 auto;
@@ -47,4 +103,34 @@ html {
 .meerkat .back_leg {
   z-index: 3;
   background-image: url('http://assets.suricates.nl/export/back_leg.png');
+}
+.login_box {
+  max-width: 400px;
+  width: 100%;
+  min-height: 150px;
+  margin: 10% auto 0 auto;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  padding: 20px;
+  background-color: #fff;
+  font-family: 'Lato', Helvetica, sans-serif;
+  text-align: center;
+}
+.btn {
+  padding: 10px 20px;
+  border-bottom: 4px solid;
+  border-radius: 4px;
+  text-decoration: none;
+  font-family: 'Lato', Helvetica, sans-serif;
+}
+.btn.twitter {
+  color: #fff;
+  background-color: #59ADEC;
+  border-color: #12609a;
+  transistion: all 0.2s ease-out;
+}
+.btn.twitter:hover {
+  background-color: #2b96e7;
+  border-bottom: 3px solid #12609a;
+  transistion: all 0.2s ease-out;
 }
