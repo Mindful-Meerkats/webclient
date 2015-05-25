@@ -4,6 +4,7 @@
 <head>
 	<title>Mindful Meerkats</title>
 	<link rel="stylesheet" href="/css/index.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 	<div id="container"></div>
@@ -18,12 +19,14 @@
 <script src="https://fb.me/JSXTransformer-0.13.2.js"></script>
 <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script src='/jsx/meerkat.jsx' type="text/jsx"></script>
+<script src='/jsx/score_window.jsx' type="text/jsx"></script>
 <script type="text/jsx">
 
 	React.render(
 
 	  <div className="container">
 	  <Meerkat />
+	  <ScoreWindow />
 	  </div>,
 	  document.getElementById('container')
 	);
