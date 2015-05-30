@@ -68,7 +68,7 @@ api.del = function( url, cb ){
 api.logout = function(){
 	Cookies.remove('jwt');
     window.location.replace( "/login" );
-}
+};
 
 
 // detect token

@@ -1,0 +1,7 @@
+server {
+    server_name api.suricates.nl;
+    root /devstar/sites/json-api/public;
+    passenger_enabled on;
+    passenger_app_env development;
+
+}
