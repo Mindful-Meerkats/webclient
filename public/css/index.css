@@ -460,41 +460,40 @@ input {
   text-align: center;
 }
 #hud_layer {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  width: 35px;
-}
-#hud_layer .ui_button {
-  text-decoration: none;
-  color: #35282A;
-  opacity: 0.7;
-  font-size: 32px;
-}
-#hud_layer .ui_button:after {
-  font-family: "mm-icons";
-}
-#hud_layer .ui_button.settings:after {
-  content: "\e600";
-}
-#hud_layer .ui_button.quests:after {
-  content: "\e272";
-}
-.pop_up {
-  display: none;
-}
-svg.donut {
-  position: absolute;
-  top: 25px;
-  right: 25px;
-}
-#hud_layer {
   position: absolute;
   top: 0px;
   left: 0px;
   width: 100%;
   bottom: 0px;
   z-index: 10;
+}
+#hud_layer .ui_button {
+  text-decoration: none;
+  color: #35282A;
+  opacity: 0.7;
+  font-size: 40px;
+  position: absolute;
+  left: 10px;
+}
+#hud_layer .ui_button:after {
+  font-family: "mm-icons";
+}
+#hud_layer .ui_button.settings {
+  bottom: 10px;
+}
+#hud_layer .ui_button.settings:after {
+  content: "\e600";
+}
+#hud_layer .ui_button.quests {
+  top: 10px;
+}
+#hud_layer .ui_button.quests:after {
+  content: "\e272";
+}
+svg.donut {
+  position: absolute;
+  top: 0px;
+  right: 0px;
 }
 .meerkat {
   display: block;
@@ -523,6 +522,7 @@ svg.donut {
   animation-duration: .4s;
   animation-iteration-count: 1;
   animation-fill-mode: forwards;
+  display: none;
 }
 .pop_up .close {
   position: absolute;
