@@ -7,17 +7,17 @@ config.env = function(){
 	}else if( href.indexOf('suricates') !== -1 ) {
 		return 'accept';
 	}else {
-		return 'production'; 
+		return 'production';
 	}
 };
 
 config.apiServers = {
     development: 'http://localhost:1337',
-    accept: 'http://api.suricates.nl',
-    production: 'http://api.mindful-meerkats.com',
+    accept: 'http://api.suricates.nl/',
+    production: 'http://api.mindful-meerkats.com/',
     default: 'http://localhost:1337'
 };
-    
+
 
 config.apiServer = function(){
     return config.apiServers[ config.env() ] || config.apiServers.default;
@@ -25,11 +25,11 @@ config.apiServer = function(){
 
 config.authServers = {
     development: 'http://localhost:4444',
-    accept: 'http://auth.suricates.nl',
-    production: 'http://auth.mindful-meerkats.com',
+    accept: 'http://auth.suricates.nl/',
+    production: 'http://auth.mindful-meerkats.com/',
     default: 'http://localhost:4444'
 };
-    
+
 
 config.authServer = function(){
     return config.authServers[ config.env() ] || config.authServers.default;
@@ -41,9 +41,9 @@ config.assetServers = {
     production: 'http://assets.mindful-meerkats.com/',
     default: 'http://localhost:9999/'
 };
-    
+
 config.assetServer = function(){
     return config.assetServers[ config.env() ] || config.assetServers.default;
 };
- 
+
 
