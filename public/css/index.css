@@ -14,6 +14,9 @@ html {
 body {
   padding: 20px;
 }
+body.meerkat {
+  padding: 0;
+}
 .container {
   max-width: 800px;
   width: 100%;
@@ -385,6 +388,9 @@ body {
   border-color: #12609a;
   transistion: all 0.2s ease-out;
 }
+.btn.twitter:before {
+  content: "\e602";
+}
 .btn.twitter:hover {
   background-color: #2b96e7;
   border-bottom: 3px solid #12609a;
@@ -422,6 +428,7 @@ input {
   font-size: 17px;
   border-radius: 4px;
   border: 1px solid #ddd;
+  text-align: center;
 }
 button {
   padding: 7px 30px;
