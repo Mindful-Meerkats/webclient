@@ -92,7 +92,7 @@
         var month = parseInt( $('#month').val() || "", 10);
         var day = parseInt( $('#day').val() || "", 10);
         if( year && month && day ){
-            api.meerkat.birthdate = zerofill( year ) + "-" + zerofill( month ) + "-" + zerofill( day );
+            api.meerkat.birthdate = zerofill( 4, year ) + "-" + zerofill( 2, month ) + "-" + zerofill( 2, day );
         }
         api.put( "/meerkats/" + api.meerkat.id, api.meerkat, function(){
             location.replace("/meerkat");

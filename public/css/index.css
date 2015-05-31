@@ -385,6 +385,9 @@ body {
   border-color: #12609a;
   transistion: all 0.2s ease-out;
 }
+.btn.twitter:before {
+  content: "\e602";
+}
 .btn.twitter:hover {
   background-color: #2b96e7;
   border-bottom: 3px solid #12609a;
@@ -472,6 +475,31 @@ input {
 }
 #hud_layer .ui_button.quests:after {
   content: "\e272";
+}
+.pop_up {
+  display: none;
+}
+svg.donut {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+}
+#hud_layer {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  bottom: 0px;
+  z-index: 10;
+}
+.meerkat {
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  bottom: 0px;
+  z-index: 5;
 }
 .pop_up {
   position: absolute;
