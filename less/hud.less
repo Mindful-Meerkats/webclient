@@ -2,42 +2,44 @@
 
 
 #hud_layer {
-	position: fixed;
-	top: 20px;
-	left: 20px;
-	width: 35px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	bottom: 0px;
+	z-index: 10;
 
 	.ui_button {
 		text-decoration: none;
 		color: #35282A;
 		opacity: 0.7;
-		font-size: 32px;
+		font-size: 40px;
+		position: absolute;
+		left: 10px;
+        text-shadow: 0 0 10px #ddd;
 		&:after {
 			font-family: "mm-icons";
 		}
 
-		&.settings:after {
-			content: "\e600";
+		&.settings {
+			bottom: 10px;
+			&:after {
+				content: "\e600";
+			}
 		}
-		&.quests:after {
-			content: "\e272";
+		&.quests{
+			top: 10px;
+			&:after {
+				content: "\e272";
+			}
 		}
 	}
 }
 
-.pop_up { display: none }
 svg.donut {
   position: absolute;
-  top: 25px;
-  right: 25px;
-}
-#hud_layer {
-  position: absolute;
   top: 0px;
-  left: 0px;
-  width: 100%;
-  bottom: 0px;
-  z-index: 10;
+  right: 0px;
 }
 
 .meerkat {
