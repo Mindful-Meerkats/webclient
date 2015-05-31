@@ -17,6 +17,9 @@ body {
 body.meerkat {
   padding: 0;
 }
+body.meerkats .container {
+  background-color: #FFC042;
+}
 .container {
   max-width: 800px;
   width: 100%;
