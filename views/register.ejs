@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Mindful Meerkats</title>
+	<link rel="stylesheet" href="/css/index.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div id="form">
+        <label>Full Name</label>
+        <input type='text' id='name'>
+        <label>Email</label>
+        <input type='text' id='email'>
+        <label>Nickname</label>
+        <input type='text' id='nickname'>
+        <label>Birthdate</label>
+        <input type='text' id='year' placeholder='year'>-
+        <input type='text' id='month' placeholder='month'>-
+        <input type='text' id='day' placeholder='day'>
+        <button id='start'>Get started!</button>
+    </div>
+    <script src="https://rawgit.com/js-cookie/js-cookie/master/src/js.cookie.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="/js/config.js"></script>
+    <script src="/js/helpers.js"></script>
+    <script src="/js/api.js"></script>
+    <script>
+
+    // detect token
+    api.token = window.location.hash.substr(1);
+    window.location.hash = "";
+    if( api.token === "" ) api.token = Cookies.get('jwt') || "";
+    if( api.token === "" ) window.location.replace( "/login" );
+    else {
+    
+        Cookies.set('jwt', api.token, { expires: 1 });
+        
+        // fetch user record
+        $.ajax({
+         	url: api.server ,
+         	dataType: 'json',
+            beforeSend: function( xhr ){
+        	  	xhr.setRequestHeader("Authorization", "Bearer " + api.token);
+            },
+            success: function( data ){
+                api.meerkat = data.meerkat;
+                if( !data.meerkat.full_name ){
+         	        $('#nickname').val( data.meerkat.nickname );
+                } else {
+                    window.location.replace("/meerkat");
+                }
+            },
+            error: function( xhr, status, err ){
+        		console.error( status, err.toString() );
+        	}
+        });
+        
+    }
+
+    var check_form = function(){
+        var email = $('#email').val() || "" ;
+        var nickname = $('#nickname').val() || "" ;
+        var fullname = $('#name').val() || "";
+
+        $('#start').attr('disabled', ( email === "" || nickname === "" || fullname === "" ) );
+        setTimeout( check_form, 200 );
+    }
+    check_form();
+
+    var zerofill = function( n, v ){
+        v = "" + v;
+        while( v.length < n ){
+            v = "0" + v;
+        }
+        return v;
+    }
+
+    $('#start').click( function(){
+        api.meerkat.notifiers = api.meerkat.notifiers || {};
+        api.meerkat.notifiers.email = $('#email').val();
+        api.meerkat.nickname = $('#nickname').val();
+        api.meerkat.full_name = $('#name').val();
+        var year = parseInt( $('#year').val() || "", 10);
+        var month = parseInt( $('#month').val() || "", 10);
+        var day = parseInt( $('#day').val() || "", 10);
+        if( year && month && day ){
+            api.meerkat.birthdate = zerofill( year ) + "-" + zerofill( month ) + "-" + zerofill( day );
+        }
+        api.put( "/meerkats/" + api.meerkat.id, api.meerkat, function(){
+            location.replace("/meerkat");
+        });
+    });
+
+    </script>
+</body>
+</html>

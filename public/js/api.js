@@ -71,31 +71,5 @@ api.logout = function(){
 };
 
 
-// detect token
-api.token = window.location.hash.substr(1);
-window.location.hash = "";
-if( api.token === "" ) api.token = Cookies.get('jwt') || "";
-if( api.token === "" ) window.location.replace( "/login" );
-else {
-
-// 	Cookies.set('jwt', api.token, { expires: 1 });
-
-// fetch user record
- 	$.ajax({
- 	 	url: api.server ,
- 	 	dataType: 'json',
- 	    beforeSend: function( xhr ){
- 		  	xhr.setRequestHeader("Authorization", "Bearer " + api.token);
- 	    },
- 	    success: function( data ){
- 	    	//$('h4.screen_name').text( data.account.screen_name );
- 	    },
- 	    error: function( xhr, status, err ){
- 			console.error( status, err.toString() );
- 		}
- 	});
-
- }
-
 
 

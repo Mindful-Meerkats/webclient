@@ -6,10 +6,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <script src="https://rawgit.com/js-cookie/js-cookie/master/src/js.cookie.js"></script>
+	<script src="https://rawgit.com/js-cookie/js-cookie/master/src/js.cookie.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script src="/js/config.js"></script>
     <script src="/js/helpers.js"></script>
+    <script src="/js/meerkat.js"></script>    
     <script src="/js/api.js"></script>
     <script>
 
@@ -33,7 +34,7 @@
                 if( !data.meerkat.full_name ){
          	        window.location.replace("/register");    
                 } else {
-                    window.location.replace("/meerkat");
+                    render_meerkat( data.meerkat );
                 }
             },
             error: function( xhr, status, err ){
