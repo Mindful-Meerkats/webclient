@@ -1,12 +1,28 @@
+@import url(http://fonts.googleapis.com/css?family=Walter+Turncoat);
+
+@fontStack: 'Walter Turncoat', Helvetica, cursive;
+
+*, *:before, *:after {
+	box-sizing: border-box;
+}
+
 body, html {
 	padding: 0;
 	margin: 0;
+	background-color: #FEC422;
+	font-family: @fontStack;
 }
 
-#container {
+body { padding: 20px;}
+
+.container {
 	max-width: 800px;
 	width: 100%;
 	margin: 0 auto;
+	background-color: #fff;
+	border-radius: 4px;
+	padding: 20px;
+	text-align: center;
 }
 
 .app_window {
@@ -17,4 +33,8 @@ body, html {
 
 @import './variables.less';
 @import './meerkat.less';
-@import './login.less';
+@import './icons.less';
+@import './btn.less';
+@import './form.less';
+@import './hud.less';
+@import './pop_up.less';

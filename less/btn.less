@@ -1,0 +1,63 @@
+
+.btn {
+	padding: 7px 30px;
+	display: block;
+	width: 100%;
+	margin-top: 20px;
+	background-color: #9CD2A6;
+	border: none;
+	border-bottom: 3px solid darken( #9CD2A6, 20% );
+	border-radius: 4px;
+	color: white;
+	font-size: 17px;
+	text-decoration: none;
+
+	@media screen and (min-width: 560px) {
+		max-width: 400px;
+		display: inline-block;
+	}
+
+	&:before {
+		content: "\e605";
+		font-family: 'mm-icons';
+		padding-right: 5px;
+	}
+
+	&:hover , &:active {
+		background-color: darken( #9CD2A6, 20% );
+		border-color: #9CD2A6;
+	}
+
+	&.twitter {
+		color: #fff;
+		background-color: #59ADEC;
+		border-color: darken(#59ADEC, 30%);
+		transistion: all .2s ease-out;
+
+		&:hover {
+			background-color: darken( #59ADEC, 10% );
+			border-bottom: 3px solid darken(#59ADEC, 30%);
+			transistion: all .2s ease-out;
+		}
+	}
+
+	&.accept:before, &.complete:before {
+		content: "\e604";
+	}
+
+	&.decline, &.lose:before, &.forfeit:before {
+		background-color: #FF4136;
+		border-color: darken(#FF4136, 20%);
+
+		&:hover , &:active {
+			background-color: darken(#FF4136, 20%);
+			border-color: #FF4136;;
+		}
+
+		&:before {
+			content: "\e605";
+			font-family: 'mm-icons';
+			padding-right: 5px;
+		}
+	}
+}
