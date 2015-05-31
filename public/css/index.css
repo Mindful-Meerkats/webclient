@@ -244,8 +244,6 @@ body {
   position: absolute;
   top: 0px;
   left: 0px;
-  -webkit-transform: translate3d(0, 0, 0);
-  opacity: 1;
 }
 .meerkat img.anim1of3 {
   -webkit-animation: anim1of3 4s 10s linear infinite;

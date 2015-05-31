@@ -104,11 +104,11 @@ var meerkat_to_images = function( meerkat ){
 };
 
 var color_map = {
-    happiness: { good: "cyan",   bad: "navy",     from: 0.5, to: 0.3  },
-    wisdom:    { good: "purple", bad: "maroon",   from: 0.6, to: 0.4  },
-    community: { good: "lime",   bad: "hotpint",  from: 0.7, to: 0.5  },
-    fitness:   { good: "white",  bad: "brown",    from: 0.8, to: 0.6  },
-    pawprint:  { good: "green",  bad: "orange",   from: 0.8, to: 0.7  }
+    happiness: { good: "rgba(32,44,44,1)",      bad: "red",     goodpane: "rgba(32,44,44,0.2)",       badpane: "rgba(32,44,44,0.2)",  from: 0.4, to: 0.3  },
+    wisdom:    { good: "rgba(254,95,85,1)",     bad: "red",     goodpane: "rgba(254,95,85,0.2)",      badpane: "rgba(254,95,85,0.2)", from: 0.5, to: 0.4  },
+    community: { good: "rgba(156,210,166,1)",   bad: "red",     goodpane: "rgba(156,210,166,0.2)",    badpane: "rgba(156,210,166,0.2)", from: 0.6, to: 0.5  },
+    fitness:   { good: "rgba(53,40,20,1)",      bad: "red",     goodpane: "rgba(53,40,20,0.2)",       badpane: "rgba(53,40,20,0.2)", from: 0.7, to: 0.6  },
+    pawprint:  { good: "rgba(254,196,34,1)",    bad: "red",     goodpane: "rgba(254,196,34,0.2)",     badpane: "rgba(254,196,34,0.2)", from: 0.8, to: 0.7  }
 };
 
 var donut = function( w, h, scores ){
@@ -125,7 +125,9 @@ var donut = function( w, h, scores ){
                 .enter().append("g")
                     .attr("class", "arc " + k);
 
-        g.append("path").attr("d", arc).style("fill", function(d, i) { return [ (scores[k] < 0) ? color_map[k].bad : color_map[k].good, 'transparent'][i] });    
+        g.append("path").attr("d", arc)
+                .style("fill", function(d, i) { return ((scores[k] < 0) ? [ color_map[k].bad, "rgba(255,255,255,0.7)" ] : [ color_map[k].good, "rgba(255,255,255,0.7)" ] )[i] })
+                .style("stroke", function(d,i){ return "white" })
     }
     
 };
