@@ -1,16 +1,18 @@
 var meerkat_images = [
     
-    "paw_print/back1/-1.png", 
-    "paw_print/back1/+1.png", 
-    "paw_print/back1/0.png", 
+    "pawprint/back1/-1.png", 
+    "pawprint/back1/+1.png", 
+    "pawprint/back1/0.png", 
     "community/back1/+2.png", 
     "community/back1/-1.png", 
     "community/back1/+3.png", 
     "community/back1/+1.png", 
     
-    "paw_print/front1/-1.png", 
-    "paw_print/front1/+1.png", 
-    "paw_print/front1/0.png", 
+    
+    
+    "pawprint/front1/-1.png", 
+    "pawprint/front1/+1.png", 
+    "pawprint/front1/0.png", 
     "wellbeing/front/-1.png", 
     "wellbeing/front/-4.png", 
     "wellbeing/front/+1.png", 
@@ -21,28 +23,29 @@ var meerkat_images = [
     "thriftness/front2/0.png", 
     "thriftness/front2/_1.png", 
   
+    "skins/default/backleg.png", 
+  
     "fitness/front1/-1.png", 
     "fitness/front1/+1.png", 
     "fitness/front1/0.png",
     
-    "wisdom/front2/+1_4.png", 
-    "wisdom/front2/-1_3.png", 
-    "wisdom/front2/-1_2.png", 
-    "wisdom/front2/+1_5.png", 
-    "wisdom/front2/-1_1.png", 
+    "wisdom/front2/+1_4_5.png", 
+    "wisdom/front2/-1_3_3.png", 
+    "wisdom/front2/-1_2_3.png", 
+    "wisdom/front2/+1_5_5.png", 
+    "wisdom/front2/-1_1_3.png", 
     "wisdom/front2/0.png", 
-    "wisdom/front2/+1_1.png", 
-    "wisdom/front2/+1_3.png", 
-    "wisdom/front2/+1_2.png", 
+    "wisdom/front2/+1_1_5.png", 
+    "wisdom/front2/+1_3_5.png", 
+    "wisdom/front2/+1_2_5.png", 
     "happiness/front2/+1.png", 
     "happiness/front2/0.png", 
     "happiness/front2/_1.png", 
     
-    "skins/default/eyes_fur.png", 
-    "skins/default/sweat_thrift.png", 
+    "skins/default/eyesfur.png", 
+    "skins/default/sweatthrift.png", 
     "skins/default/eyes.png", 
-    "skins/default/back_leg.png", 
-    "skins/default/head_fur.png"
+    "skins/default/headfur.png"
     
 ];
 
@@ -109,7 +112,10 @@ var render_meerkat = function( meerkat ){
         if( images.indexOf( meerkat_images[i] ) !== -1  || (meerkat_images[i].substr(0,6+meerkat.skin.meerkat.length) === "skins/" + meerkat.skin.meerkat)  ){
             img = document.createElement('img');
             img.src = baseUrl + "meerkats/" + meerkat_images[i];
-            //img.className = "anim" + j + "of" + ix.length;
+            var anim = meerkat_images[i].split('_');
+            if( anim.length > 1 ){ 
+                img.className = "anim" + anim[1] + "of" + anim[2].replace('.png', '');
+            }
              e.appendChild( img );
         }
     }

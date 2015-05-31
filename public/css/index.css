@@ -68,14 +68,163 @@ html {
     -webkit-transform: scale(12deg);
   }
 }
+/* three components: 10%-30% 40%-60% 70%-90% */
+@-webkit-keyframes anim1of3 {
+  0%,
+  5% {
+    opacity: 0;
+  }
+  10%,
+  30% {
+    opacity: 1;
+  }
+  35,
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes anim2of3 {
+  0%,
+  35% {
+    opacity: 0;
+  }
+  40%,
+  60% {
+    opacity: 1;
+  }
+  65%,
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes anim3of3 {
+  0%,
+  65% {
+    opacity: 0;
+  }
+  70%,
+  90% {
+    opacity: 1;
+  }
+  95%,
+  100% {
+    opacity: 0;
+  }
+}
+/* five components:  5%-15% 25%-35% 45%-55% 65%-75% 85%-95% */
+@-webkit-keyframes anim1of5 {
+  0%,
+  4% {
+    opacity: 0;
+  }
+  5%,
+  15% {
+    opacity: 1;
+  }
+  16%,
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes anim2of5 {
+  0%,
+  24% {
+    opacity: 0;
+  }
+  25%,
+  35% {
+    opacity: 1;
+  }
+  36%,
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes anim3of5 {
+  0%,
+  44% {
+    opacity: 0;
+  }
+  45%,
+  55% {
+    opacity: 1;
+  }
+  56%,
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes anim4of5 {
+  0%,
+  64% {
+    opacity: 0;
+  }
+  65%,
+  75% {
+    opacity: 1;
+  }
+  76%,
+  100% {
+    opacity: 0;
+  }
+}
+@-webkit-keyframes anim5of5 {
+  0%,
+  84% {
+    opacity: 0;
+  }
+  85%,
+  95% {
+    opacity: 1;
+  }
+  96%,
+  100% {
+    opacity: 0;
+  }
+}
 .meerkat {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 100%;
 }
 .meerkat img {
   width: 100%;
   position: absolute;
+  top: 0px;
+  left: 0px;
+  -webkit-transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+.meerkat img.anim1of3 {
+  -webkit-animation: anim1of3 4s 10s linear infinite;
+  opacity: 0;
+}
+.meerkat img.anim2of3 {
+  -webkit-animation: anim2of3 4s 10s linear infinite;
+  opacity: 0;
+}
+.meerkat img.anim3of3 {
+  -webkit-animation: anim3of3 4s 10s linear infinite;
+  opacity: 0;
+}
+.meerkat img.anim1of5 {
+  -webkit-animation: anim1of5 6s 10s linear infinite;
+  opacity: 0;
+}
+.meerkat img.anim2of5 {
+  -webkit-animation: anim2of5 6s 10s linear infinite;
+  opacity: 0;
+}
+.meerkat img.anim3of5 {
+  -webkit-animation: anim3of5 6s 10s linear infinite;
+  opacity: 0;
+}
+.meerkat img.anim4of5 {
+  -webkit-animation: anim4of5 6s 10s linear infinite;
+  opacity: 0;
+}
+.meerkat img.anim5of5 {
+  -webkit-animation: anim5of5 6s 10s linear infinite;
+  opacity: 0;
 }
 .login_box {
   max-width: 400px;
