@@ -102,6 +102,34 @@ var meerkat_to_images = function( meerkat ){
     for( var prop in meerkat.scores ) images = images.concat( get_frames_of( prop, meerkat.scores[prop] ) );
     return images;
 };
+
+var color_map = {
+    happiness: { good: "cyan",   bad: "navy",     from: 0.5, to: 0.3  },
+    wisdom:    { good: "purple", bad: "maroon",   from: 0.6, to: 0.4  },
+    community: { good: "lime",   bad: "hotpint",  from: 0.7, to: 0.5  },
+    fitness:   { good: "white",  bad: "brown",    from: 0.8, to: 0.6  },
+    pawprint:  { good: "green",  bad: "orange",   from: 0.8, to: 0.7  }
+};
+
+var donut = function( w, h, scores ){
+    
+    var width = w, height = h, radius = Math.min(width, height) / 2;
+    var pie = d3.layout.pie().sort(null).value(function(d) { return d; });
+
+    var svg = d3.selectAll("svg.donut").attr("width", width).attr("height", height).append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    for( var k in color_map ){
+        var arc = d3.svg.arc().outerRadius(radius * color_map[k].from).innerRadius(radius * color_map[k].to);
+        var s = Math.min(Math.abs(scores[k])+1,6);
+        var g = svg.selectAll(".arc." + k )
+                   .data(pie([s,6-s]))
+                .enter().append("g")
+                    .attr("class", "arc " + k);
+
+        g.append("path").attr("d", arc).style("fill", function(d, i) { return [ (scores[k] < 0) ? color_map[k].bad : color_map[k].good, 'transparent'][i] });    
+    }
+    
+};
+
 var render_meerkat = function( meerkat ){
     var images = meerkat_to_images( meerkat );
     var baseUrl = config.assetServer();
@@ -120,4 +148,7 @@ var render_meerkat = function( meerkat ){
         }
     }
     document.body.appendChild( e );
+    donut( 100, 100, meerkat.scores );
 };
+
+
