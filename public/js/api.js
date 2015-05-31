@@ -37,8 +37,9 @@ api.put = function( url, data, cb ){
 	$.ajax({
 	  url: api.server + url,
 	  dataType: 'json',
-	  method: 'put',
-	  data: data,
+	  method: 'PUT',
+	  data: JSON.stringify(data),
+      contentType: 'application/json; charset=utf-8',
 	  beforeSend: function( xhr ){
 	  	xhr.setRequestHeader("Authorization", "Bearer " + api.token);
 	  },
@@ -69,6 +70,19 @@ api.logout = function(){
 	Cookies.remove('jwt');
     window.location.replace( "/login" );
 };
+api.saving = false;
+api.save = function(){
+    api.saving = true;
+    api.put( "/meerkats/" + api.meerkat.id, api.meerkat, function(){
+        api.saving = false;
+        console.log('saved meerkat');
+    });
+};
+
+
+
+
+
 
 
 
