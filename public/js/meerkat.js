@@ -8,8 +8,6 @@ var meerkat_images = [
     "community/back1/+3.png",
     "community/back1/+1.png",
 
-
-
     "pawprint/front1/-1.png",
     "pawprint/front1/+1.png",
     "pawprint/front1/0.png",
@@ -147,7 +145,8 @@ var render_meerkat = function( meerkat ){
              e.appendChild( img );
         }
     }
-    document.body.appendChild( e );
+    var $meerkatContainer = $('.meerkat_container');
+    $meerkatContainer.append( e );
     donut( 200, 200, meerkat.scores );
 };
 
