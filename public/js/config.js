@@ -36,10 +36,10 @@ config.authServer = function(){
 };
 
 config.assetServers = {
-    development: 'http://localhost:9999/',
-    accept: 'http://assets.suricates.nl/',
-    production: 'http://assets.mindful-meerkats.com/',
-    default: 'http://localhost:9999/'
+    development: '/assets/',
+    accept: '/assets/',
+    production: '/assets/',
+    default: '/assets/'
 };
 
 config.assetServer = function(){
