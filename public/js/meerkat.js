@@ -141,13 +141,15 @@ var render_meerkat = function( meerkat ){
     e.className = "meerkat";
     for( var i=0; i<meerkat_images.length; i++ ){
         if( images.indexOf( meerkat_images[i] ) !== -1  || (meerkat_images[i].substr(0,6+meerkat.skin.meerkat.length) === "skins/" + meerkat.skin.meerkat)  ){
-            img = document.createElement('img');
-            img.src = baseUrl + "meerkats/" + meerkat_images[i];
+            var $img = $('<img src="'+  baseUrl + "meerkats/" + meerkat_images[i] +'">')
             var anim = meerkat_images[i].split('_');
             if( anim.length > 1 ){
-                img.className = "anim" + anim[1] + "of" + anim[2].replace('.png', '');
+                $img.addClass( "anim" + anim[1] + "of" + anim[2].replace('.png', '') );
             }
-             e.appendChild( img );
+            $img.load(function(){
+              e.appendChild( img );
+            });
+
         }
     }
     var $meerkatContainer = $('.meerkat_container');
