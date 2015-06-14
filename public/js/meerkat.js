@@ -153,7 +153,7 @@ var render_meerkat = function( meerkat ){
     }
     var $meerkatContainer = $('.meerkat_container');
     $meerkatContainer.html('');
-    $meerkatContainer.append( e );
+    $meerkatContainer.append( $e );
     donut( 150, 150, meerkat.scores );
 };
 
