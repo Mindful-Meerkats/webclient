@@ -147,7 +147,7 @@ var render_meerkat = function( meerkat ){
                 $img.addClass( "anim" + anim[1] + "of" + anim[2].replace('.png', '') );
             }
             $img.load(function(){
-              e.appendChild( img );
+              e.appendChild( $img );
             });
 
         }
