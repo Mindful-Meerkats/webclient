@@ -135,25 +135,24 @@ var donut = function( w, h, scores ){
 var render_meerkat = function( meerkat ){
     var images = meerkat_to_images( meerkat );
     var baseUrl = config.assetServer();
-    var $img, $e;
+    var img, e;
 
-    $e = $('<div class="meerkat"></div>');
+    e = document.createElement('div');
+    e.className = "meerkat";
     for( var i=0; i<meerkat_images.length; i++ ){
         if( images.indexOf( meerkat_images[i] ) !== -1  || (meerkat_images[i].substr(0,6+meerkat.skin.meerkat.length) === "skins/" + meerkat.skin.meerkat)  ){
-            $img = $('<img src="'+  baseUrl + "meerkats/" + meerkat_images[i] +'">')
+            img = document.createElement('img');
+            img.src = baseUrl + "meerkats/" + meerkat_images[i];
             var anim = meerkat_images[i].split('_');
             if( anim.length > 1 ){
-                $img.addClass( "anim" + anim[1] + "of" + anim[2].replace('.png', '') );
+                img.className = "anim" + anim[1] + "of" + anim[2].replace('.png', '');
             }
-            $img.load(function(){
-              $e.append( $img );
-            });
-
+             e.appendChild( img );
         }
     }
     var $meerkatContainer = $('.meerkat_container');
     $meerkatContainer.html('');
-    $meerkatContainer.append( $e );
+    $meerkatContainer.append( e );
     donut( 150, 150, meerkat.scores );
 };
 
