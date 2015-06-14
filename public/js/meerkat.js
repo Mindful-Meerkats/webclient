@@ -135,19 +135,18 @@ var donut = function( w, h, scores ){
 var render_meerkat = function( meerkat ){
     var images = meerkat_to_images( meerkat );
     var baseUrl = config.assetServer();
-    var img, e;
+    var $img, $e;
 
-    e = document.createElement('div');
-    e.className = "meerkat";
+    $e = $('<div class="meerkat"></div>');
     for( var i=0; i<meerkat_images.length; i++ ){
         if( images.indexOf( meerkat_images[i] ) !== -1  || (meerkat_images[i].substr(0,6+meerkat.skin.meerkat.length) === "skins/" + meerkat.skin.meerkat)  ){
-            var $img = $('<img src="'+  baseUrl + "meerkats/" + meerkat_images[i] +'">')
+            $img = $('<img src="'+  baseUrl + "meerkats/" + meerkat_images[i] +'">')
             var anim = meerkat_images[i].split('_');
             if( anim.length > 1 ){
                 $img.addClass( "anim" + anim[1] + "of" + anim[2].replace('.png', '') );
             }
             $img.load(function(){
-              e.appendChild( $img );
+              $e.append( $img );
             });
 
         }
