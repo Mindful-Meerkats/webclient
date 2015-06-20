@@ -121,29 +121,74 @@ var meerkat_to_images = function( meerkat ){
     return images;
 };
 
+// new style
 var color_map = {
+    fitness:   { good: "darkblue" },
+    wellbeing: { good: "#894498"  },
+    wisdom:    { good: "#7C9FBD"  },
+    community: { good: "#8D2044"  },
+    thriftness:{ good: "#504D07"  },
+    pawprint:  { good: "#EE8409"  },
+    
+};
 
-    pawprint:  { good: "rgba(255, 198, 59,1)",    bad: "red",     goodpane: "rgba(254,196,34,0.2)",     badpane: "rgba(254,196,34,0.2)",  from: 0.4, to: 0.3  },
-    thriftness:{ good: "rgba(208, 207, 236,1)",   bad: "red",     goodpane: "rgba(53,40,20,0.2)",       badpane: "rgba(53,40,20,0.2)",    from: 0.5, to: 0.4  },
-    wellbeing: { good: "rgba(247, 162, 120,1)",   bad: "red",     goodpane: "rgba(53,40,20,0.2)",       badpane: "rgba(53,40,20,0.2)",    from: 0.6, to: 0.5  },
-    wisdom:    { good: "rgba(200, 233, 160,1)",   bad: "red",     goodpane: "rgba(254,95,85,0.2)",      badpane: "rgba(254,95,85,0.2)",   from: 0.7, to: 0.6  },
-    community: { good: "rgba(46, 190, 98,1)",     bad: "red",     goodpane: "rgba(156,210,166,0.2)",    badpane: "rgba(156,210,166,0.2)", from: 0.8, to: 0.7  },
-    fitness:   { good: "rgba(208, 207, 236,1)",   bad: "red",     goodpane: "rgba(53,40,20,0.2)",       badpane: "rgba(53,40,20,0.2)",    from: 0.9, to: 0.8  }
+// old style 
+var color_map = {
+    pawprint:  { good: "rgba(255, 198, 59,1)"  },
+    thriftness:{ good: "rgba(208, 207, 236,1)"  },
+    wellbeing: { good: "rgba(247, 162, 120,1)"  },
+    wisdom:    { good: "rgba(200, 233, 160,1)"  },
+    community: { good: "rgba(46, 190, 98,1)"  },
+    fitness:   { good: "rgba(208, 207, 236,1)"  }
+};
+
+
+// rainbow
+var color_map = {
+    fitness:   { good: "#cc0000" },
+    wellbeing: { good: "#990a9c"  },
+    wisdom:    { good: "#500a9c"  },
+    community: { good: "#0a0d9c"  },
+    thriftness:{ good: "#5b9c0a"  },
+    pawprint:  { good: "#fae300"  }
+    
+};
+
+
+
+// rainbow
+var color_map = {
+    fitness:   { good: "#cc0000" },
+    wellbeing: { good: "#990a9c"  },
+    wisdom:    { good: "#0a0d9c"  }, 
+    community: { good: "#5b9c0a"  },
+    thriftness:{ good: "#fae300"  },
+    pawprint:  { good: "#ed5f21"  }
+};
+
+// ralf rainbow 
+var color_map = {
+    fitness:   { good: "#5fc2f1" },
+    wellbeing: { good: "#0c5c7a"  },
+    wisdom:    { good: "#58cd3e"  },
+    community: { good: "#cfd40a"  },
+    thriftness:{ good: "#b84a49"  },
+    pawprint:  { good: "#E3B505"  }
+    
 };
 
 var happiness = function( scores ){
     var total = 0, score = 0;
-    for( var k in scores ) total = total + scores[k];
+    for( var k in color_map ) total = total + Math.max( Math.min( scores[k], 5 ), -5 );
     total = Math.min( Math.max( total / 6, -5 ), 5 ) + 5; // total is now a value between 0 and 10
-    if( total < 5 ){
-        score = (total/5) * 0.2;
-    } else {
-        score = 0.2 + ((total-5)*0.8);
-    }
-        
-    if( score < 0.2 ) return { style: 'bad', score: score };
-    if( score < 0.5 ) return { style: 'ok', score: score };
+    score = total / 10;
+    if( score < 0.25 ) return { style: 'bad', score: score };
+    if( score < 0.50 ) return { style: 'ok', score: score };
     return { style: 'good', score: score };
+};
+
+var limit = function(a){
+    return Math.max(Math.min(a,10),0);
 };
 
 var donut = function( w, h, scores ){
@@ -152,18 +197,21 @@ var donut = function( w, h, scores ){
     var pie = d3.layout.pie().sort(null).value(function(d) { return d; });
 
     var svg = d3.selectAll("svg.donut").attr("width", width).attr("height", height).append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-    Object.keys( color_map ).forEach( function(k){
-        var arc = d3.svg.arc().outerRadius(radius * color_map[k].from).innerRadius(radius * color_map[k].to);
-        
-        var s = Math.min(Math.abs(scores[k])+1,6);
+    Object.keys( color_map )
+    /*.sort(function(a,b){
+        if( scores[a] < scores[b] ) return 1;
+        if( scores[a] > scores[b] ) return -1;
+        return 0;
+    })*/.forEach( function(k,i){
+        var arc = d3.svg.arc().outerRadius(radius * ((i+5)/10)).innerRadius(radius * ((i+4)/10));
         var g = svg.selectAll(".arc." + k )
-                   .data(pie(scores[k] < 0 ? [6-s,s] : [s,6-s]))
+                   .data(pie([limit(scores[k]+5),10-limit(scores[k]+5)]))
                 .enter().append("g")
                     .attr("class", "arc " + k);
 
         g.append("path").attr("d", arc)
-                .style("fill", function(d, i) { return ((scores[k] < 0) ? [ "rgba(53, 40, 42,0.4)", color_map[k].bad ] : [ color_map[k].good, "rgba(53, 40, 42,0.4)" ] )[i] })
-                .style("stroke", function(d,i){ return "white" });
+                .style("fill", function(d, i) { return [ color_map[k].good, "rgba(0, 0, 0,0.2)" ][i] })
+                .style("stroke", function(d,i){ return "rgba(0,0,0,0.5)" });
     });
     
     var happy = happiness( scores );
@@ -174,12 +222,12 @@ var donut = function( w, h, scores ){
     .attr("width",200)
     .attr("height",200)
     .attr("x",-100)
-    .attr("y",(radius*0.6*(0.5-happy.score)));    
+    .attr("y",(radius*0.6*(0.5-happy.score)));
     
     
-    svg.append("circle").attr("r", radius * 0.3 ).attr("fill", "purple").attr('clip-path',"url(#clip)");
-    svg.append("text").attr("x", radius * -0.20 ).attr("y", 5).text( Math.round(happy.score * 100) + "%" );  
-    
+    svg.append("circle").attr("r", radius * 0.4 ).attr("fill", "grey").attr('clip-path',"url(#clip)");
+    svg.append("text").attr("x", -20 ).attr("fill","white").attr("stroke", "black").attr("y", 8).text( Math.round(happy.score * 99) + "%" );  
+     
     
 };
 
@@ -191,7 +239,6 @@ var render_meerkat_image = function( ctx, fn ){
         console.log( fn );
         ctx.drawImage(img, Math.random() * 25, Math.random()*25, 320, 568);
     };
-    //img.src = "http://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/280px-PNG_transparency_demonstration_1.png"; //fn;
     img.src = fn;
 };
 
@@ -255,6 +302,18 @@ var show_quest = function(){
 
 };
 
+$('.btn.quest_me').click( function(){
+    api.get('/quests/new/' + api.meerkat.id, function( data ){
+        api.meerkat.quests.awaiting.push( data );
+        $('.pop_up').removeClass('visible');
+        quest_list_showing = false;
+        quest_list_quest_showing = false;
+        quest_showing = false;        
+        show_quest();
+        api.save();
+    });
+});
+
 $('.btn.accept').click( function(){
     quest_showing = false;
     var q = api.meerkat.quests.awaiting[0];
@@ -280,7 +339,7 @@ $('.btn.decline').click( function(){
 
 var current_quest;
 var render_accepted = function(){
-    var s = d3.select('.pop_up.quest_list').selectAll('li').data( api.meerkat.quests.accepted );
+    var s = d3.select('.pop_up.quest_list ul').selectAll('li').data( api.meerkat.quests.accepted );
     var handler = function( d ){
         quest_list_quest_showing = true;
         $('.pop_up.quest_list_quest h1').text( d.title );
