@@ -36,9 +36,23 @@
 			transition: opacity .2s ease-out;
 		}
 	}
+    ul { 
+        padding: 0 0 20px 0; 
+        overflow-y: scroll;
+        max-height: 400px;
+        margin: 20px 0 -20px 0;
 
+        &::-webkit-scrollbar { 
+            display: none;
+        }
+    }
 	li {
-		cursor: pointer;
+        cursor: pointer;
+        list-style: none;
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin-bottom: 5px;
+        border-radius: 4px;
 	}
 
 

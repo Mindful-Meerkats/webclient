@@ -18,10 +18,12 @@
   },
   "devDependencies": {
     "gulp": "^3.8.11",
+    "gulp-image-resize": "^0.6.0",
     "gulp-less": "^3.0.3",
     "gulp-nodemon": "^2.0.3",
     "gulp-notify": "^2.2.0",
     "gulp-task-listing": "^1.0.0",
+    "shelljs": "^0.5.1",
     "vinyl-source-stream": "^1.1.0"
   }
 }

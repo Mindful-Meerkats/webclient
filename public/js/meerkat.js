@@ -39,13 +39,33 @@ var meerkat_images = [
     "happiness/front2/+1.png",
     "happiness/front2/0.png",
     "happiness/front2/_1.png",
-
+ 
     "skins/default/eyesfur.png",
     "skins/default/sweatthrift.png",
     "skins/default/eyes.png",
     "skins/default/headfur.png"
 
 ];
+
+var image_cache = null;
+var preload_images = function( f ){
+    if( image_cache !== null ){ f(); return }
+    image_cache = {};
+    var baseUrl = config.assetServer(); 
+    counter = meerkat_images.length;
+    meerkat_images.forEach( function( fn ){
+        var img = new Image();
+        img.onload = function(){
+            counter = counter - 1;
+            if( counter === 0 ){
+                f();
+            }
+        };
+        img.src = baseUrl + 'meerkats/' + fn;
+        image_cache[fn] = img;
+    });
+};
+
 
 var meerkat_image_map = {};
 var parse_image_url = function( url ){
@@ -111,49 +131,111 @@ var color_map = {
     fitness:   { good: "rgba(208, 207, 236,1)",   bad: "red",     goodpane: "rgba(53,40,20,0.2)",       badpane: "rgba(53,40,20,0.2)",    from: 0.9, to: 0.8  }
 };
 
+var happiness = function( scores ){
+    var total = 0, score = 0;
+    for( var k in scores ) total = total + scores[k];
+    total = Math.min( Math.max( total / 6, -5 ), 5 ) + 5; // total is now a value between 0 and 10
+    if( total < 5 ){
+        score = (total/5) * 0.2;
+    } else {
+        score = 0.2 + ((total-5)*0.8);
+    }
+        
+    if( score < 0.2 ) return { style: 'bad', score: score };
+    if( score < 0.5 ) return { style: 'ok', score: score };
+    return { style: 'good', score: score };
+};
+
 var donut = function( w, h, scores ){
 
     var width = w, height = h, radius = Math.min(width, height) / 2;
     var pie = d3.layout.pie().sort(null).value(function(d) { return d; });
 
     var svg = d3.selectAll("svg.donut").attr("width", width).attr("height", height).append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-    for( var k in color_map ){
+    Object.keys( color_map ).forEach( function(k){
         var arc = d3.svg.arc().outerRadius(radius * color_map[k].from).innerRadius(radius * color_map[k].to);
+        
         var s = Math.min(Math.abs(scores[k])+1,6);
         var g = svg.selectAll(".arc." + k )
-                   .data(pie([s,6-s]))
+                   .data(pie(scores[k] < 0 ? [6-s,s] : [s,6-s]))
                 .enter().append("g")
                     .attr("class", "arc " + k);
 
         g.append("path").attr("d", arc)
-                .style("fill", function(d, i) { return ((scores[k] < 0) ? [ color_map[k].bad, "rgba(53, 40, 42,0.4)" ] : [ color_map[k].good, "rgba(53, 40, 42,0.4)" ] )[i] })
-                .style("stroke", function(d,i){ return "white" })
-    }
-
+                .style("fill", function(d, i) { return ((scores[k] < 0) ? [ "rgba(53, 40, 42,0.4)", color_map[k].bad ] : [ color_map[k].good, "rgba(53, 40, 42,0.4)" ] )[i] })
+                .style("stroke", function(d,i){ return "white" });
+    });
+    
+    var happy = happiness( scores );
+    var clip = svg.append("defs")
+    .append("clipPath")
+    .attr("id","clip")
+    .append("rect")
+    .attr("width",200)
+    .attr("height",200)
+    .attr("x",-100)
+    .attr("y",(radius*0.6*(0.5-happy.score)));    
+    
+    
+    svg.append("circle").attr("r", radius * 0.3 ).attr("fill", "purple").attr('clip-path',"url(#clip)");
+    svg.append("text").attr("x", radius * -0.20 ).attr("y", 5).text( Math.round(happy.score * 100) + "%" );  
+    
+    
 };
 
-var render_meerkat = function( meerkat ){
+
+
+var render_meerkat_image = function( ctx, fn ){ 
+   img = new Image();
+   img.onload = function(){
+        console.log( fn );
+        ctx.drawImage(img, Math.random() * 25, Math.random()*25, 320, 568);
+    };
+    //img.src = "http://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/280px-PNG_transparency_demonstration_1.png"; //fn;
+    img.src = fn;
+};
+
+var current_meerkat = null;
+var start_render = function( meerkat ){
+    var first = true;
+    preload_images( function(){
+        current_meerkat = meerkat;
+        var loop = function(){
+            render_meerkat( current_meerkat, !first );    
+            setTimeout( loop, 1000 );
+            first = false;
+        };
+        loop(); 
+    });
+};
+
+var render_meerkat = function( meerkat, skip_donut ){
+    current_meerkat = meerkat;
+    
     var images = meerkat_to_images( meerkat );
-    var baseUrl = config.assetServer();
+    var baseUrl = config.assetServer(); 
     var img, e;
 
-    e = document.createElement('div');
-    e.className = "meerkat";
+    e = document.getElementById('meerkat_canvas');
+    var ctx = e.getContext('2d');
+    var animation_frame = Math.floor( Math.random() * 10 );
+    
     for( var i=0; i<meerkat_images.length; i++ ){
         if( images.indexOf( meerkat_images[i] ) !== -1  || (meerkat_images[i].substr(0,6+meerkat.skin.meerkat.length) === "skins/" + meerkat.skin.meerkat)  ){
-            img = document.createElement('img');
-            img.src = baseUrl + "meerkats/" + meerkat_images[i];
             var anim = meerkat_images[i].split('_');
             if( anim.length > 1 ){
-                img.className = "anim" + anim[1] + "of" + anim[2].replace('.png', '');
+                var max_anim = parseInt( anim[2].replace('.png', ''), 10);    
+                var cur_anim = parseInt(anim[1],10);
+                if( ( animation_frame % max_anim ) + 1 === cur_anim ){
+                    ctx.drawImage( image_cache[meerkat_images[i]], 0, 0, 320, 568);       
+                }
+            } else if( anim.length === 1 ){
+                ctx.drawImage( image_cache[meerkat_images[i]], 0, 0, 320, 568);       
             }
-             e.appendChild( img );
+            
         }
     }
-    var $meerkatContainer = $('.meerkat_container');
-    $meerkatContainer.html('');
-    $meerkatContainer.append( e );
-    donut( 150, 150, meerkat.scores );
+    if( !skip_donut )  donut( 150, 150, meerkat.scores );
 };
 
 var quest_showing = false;
@@ -210,7 +292,7 @@ var render_accepted = function(){
     s.text( function(d){ return d.title }).on('click', handler );
     s.enter().append('li').text( function(d){ return d.title }).on('click', handler );
     s.exit().remove();
-};
+}; 
 
 $('.btn.complete').click( function(){
    quest_list_quest_showing = false;
@@ -277,4 +359,4 @@ var auto_refresh = function(){
         });
         setTimeout( auto_refresh, 15000 );
     }
-};
+};    
