@@ -154,9 +154,7 @@ var color_map = {
     
 };
 
-
-
-// rainbow
+// rainbow minus one purple
 var color_map = {
     fitness:   { good: "#cc0000" },
     wellbeing: { good: "#990a9c"  },
@@ -168,13 +166,35 @@ var color_map = {
 
 // ralf rainbow 
 var color_map = {
-    fitness:   { good: "#5fc2f1" },
-    wellbeing: { good: "#0c5c7a"  },
-    wisdom:    { good: "#58cd3e"  },
-    community: { good: "#cfd40a"  },
-    thriftness:{ good: "#b84a49"  },
-    pawprint:  { good: "#E3B505"  }
+    fitness:   { good:  "#5fc2f1" },
+    wellbeing: { good: "#E3B505"   },
+    wisdom:    { good: "#cfd40a"   },
+    community: { good:  "#58cd3e" },
+    thriftness:{ good:  "#0c5c7a" },
+    pawprint:  { good: "#b84a49" } 
     
+};
+
+// ralf rainbow resorted
+var color_map = {
+    fitness:   { good:    "#0c5c7a"},
+    wellbeing: { good:  "#5fc2f1" },
+    wisdom:    { good:  "#58cd3e"  },
+    community: { good:  "#cfd40a"  },
+    thriftness:{ good: "#E3B505"  },
+    pawprint:  { good: "#b84a49" } 
+    
+};
+
+
+// ralf rainbow resorted keys
+var color_map = {
+    fitness:   { good:    "#0c5c7a"},
+    wisdom: { good:  "#5fc2f1" },
+    pawprint:    { good:  "#58cd3e"  },
+    community: { good:  "#cfd40a"  },
+    wellbeing:{ good: "#E3B505"  },
+    thriftness:  { good: "#b84a49" } 
 };
 
 var happiness = function( scores ){
@@ -189,14 +209,16 @@ var happiness = function( scores ){
 
 var limit = function(a){
     return Math.max(Math.min(a,10),0);
-};
+}
 
 var donut = function( w, h, scores ){
 
+    d3.select("svg.donut").selectAll("g").remove();
+    
     var width = w, height = h, radius = Math.min(width, height) / 2;
     var pie = d3.layout.pie().sort(null).value(function(d) { return d; });
 
-    var svg = d3.selectAll("svg.donut").attr("width", width).attr("height", height).append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    var svg = d3.select("svg.donut").attr("width", width).attr("height", height).append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
     Object.keys( color_map )
     /*.sort(function(a,b){
         if( scores[a] < scores[b] ) return 1;
@@ -239,6 +261,7 @@ var render_meerkat_image = function( ctx, fn ){
         console.log( fn );
         ctx.drawImage(img, Math.random() * 25, Math.random()*25, 320, 568);
     };
+    //img.src = "http://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/280px-PNG_transparency_demonstration_1.png"; //fn;
     img.src = fn;
 };
 
@@ -298,7 +321,7 @@ var show_quest = function(){
         $('.pop_up.quest').addClass('visible');
     } else {
         setTimeout( show_quest, 5000 );
-    }
+    } 
 
 };
 
@@ -415,6 +438,7 @@ var auto_refresh = function(){
     if( !api.saving ){
         api.get("meerkats/" + api.meerkat.id, function(data){
             api.meerkat = data;
+            render_meerkat( api.meerkat );
         });
         setTimeout( auto_refresh, 15000 );
     }
