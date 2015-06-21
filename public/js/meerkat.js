@@ -431,18 +431,24 @@ $('.btn.decline').on('touchstart click', function(){
 
 var current_quest;
 var render_accepted = function(){
-    var s = d3.select('.pop_up.quest_list ul').selectAll('li').data( api.meerkat.quests.accepted );
-    var handler = function( d ){
-        quest_list_quest_showing = true;
-        $('.pop_up.quest_list_quest h1').text( d.title );
-        $('.pop_up.quest_list_quest p').text( d.description );
-        $('.pop_up.quest_list_quest').addClass('visible');
-        $('.pop_up.quest_list').removeClass('visible');
-        current_quest = d;
-    };
-    s.text( function(d){ return d.title }).on('click', handler );
-    s.enter().append('li').text( function(d){ return d.title }).on('click', handler );
-    s.exit().remove();
+    if( api.meerkat.quests.accepted > 0 ){
+        $('.no_quests').remove();
+        var s = d3.select('.pop_up.quest_list ul').selectAll('li').data( api.meerkat.quests.accepted );
+        var handler = function( d ){
+            quest_list_quest_showing = true;
+            $('.pop_up.quest_list_quest h1').text( d.title );
+            $('.pop_up.quest_list_quest p').text( d.description );
+            $('.pop_up.quest_list_quest').addClass('visible');
+            $('.pop_up.quest_list').removeClass('visible');
+            current_quest = d;
+        };
+        s.text( function(d){ return d.title }).on('click', handler );
+        s.enter().append('li').text( function(d){ return d.title }).on('click', handler );
+        s.exit().remove();
+    }else {
+        $('.pop_up.quest_list').append('<p class="no_quests">You do not have any quests in progress at this time.</p>');
+    }
+
 };
 
 $('.btn.complete').on('touchstart click', function(){
