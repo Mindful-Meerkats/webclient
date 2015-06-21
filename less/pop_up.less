@@ -2,7 +2,7 @@
 
 .pop_up {
 	position: absolute;
-	top: 20px; right: 20px; left: 20px;
+	top: 50px; right: 20px; left: 20px;
 	min-height: 200px;
 	background-color: #fff;
 	border-radius: 4px;
@@ -19,10 +19,14 @@
 	display: none;
     z-index: 100;
 
+    h1 {
+    	margin: 0;
+    }
+
 	.close {
 		position: absolute;
 		top: 10px;
-		right: 10px;
+		left: 10px;
 		opacity: 1;
 		transition: opacity .2s ease-out;
 		&:after {
@@ -65,7 +69,7 @@
 
 	.stat {
 		width: 100%;
-		height: 40px;
+		height: 30px;
 		position: relative;
 		border-radius: 4px;
 		margin-bottom: 10px;
@@ -79,7 +83,7 @@
 
 		.percentage {
 			position: absolute;
-			top: 22%;
+			top: 12%;
 			left: 0;
 			right: 0;
 			color: #000;
