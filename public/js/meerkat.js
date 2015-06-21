@@ -230,11 +230,10 @@ var donut = function( w, h, scores ){
                    .data(pie([limit(scores[k]+5),10-limit(scores[k]+5)]))
                 .enter().append("g")
                     .attr("class", "arc " + k)
-                    .append("text").text( k );
 
         g.append("path").attr("d", arc)
                 .style("fill", function(d, i) { return [ color_map[k].good, "rgba(0, 0, 0,0.2)" ][i] })
-                .style("stroke", function(d,i){ return "rgba(0,0,0,0.5)" });
+                .style("stroke", function(d,i){ return "rgba(0,0,0,0.5)" }).append("text").text( k );;
     });
 
     var happy = happiness( scores );
