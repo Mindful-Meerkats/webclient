@@ -431,7 +431,7 @@ $('.btn.decline').on('touchstart click', function(){
 
 var current_quest;
 var render_accepted = function(){
-    if( api.meerkat.quests.accepted > 0 ){
+    if( api.meerkat.quests.accepted.length > 0 ){
         $('.no_quests').remove();
         var s = d3.select('.pop_up.quest_list ul').selectAll('li').data( api.meerkat.quests.accepted );
         var handler = function( d ){
