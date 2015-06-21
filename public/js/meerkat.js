@@ -241,13 +241,13 @@ var donut = function( w, h, scores ){
     .append("clipPath")
     .attr("id","clip")
     .append("rect")
-    .attr("width",100)
-    .attr("height",100)
+    .attr("width",200)
+    .attr("height",200)
     .attr("x",-100)
     .attr("y",(radius*0.6*(0.5-happy.score)));
 
 
-    svg.append("circle").attr("r", radius * 0.4 ).attr("fill", "grey").attr('clip-path',"url(#clip)");
+    svg.append("circle").attr("r", radius * 0.3 ).attr("fill", "grey").attr('clip-path',"url(#clip)");
     svg.append("text").attr("x", -20 ).attr("fill","white").attr("stroke", "black").attr("y", 8).text( Math.round(happy.score * 99) + "%" );
 
 
