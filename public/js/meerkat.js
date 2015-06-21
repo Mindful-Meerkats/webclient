@@ -376,9 +376,9 @@ var show_completed = function( quest ){
 };
 
 if( is_mobile ){
-  $('.donut').bind('touchstart', show_stats() );
+  $('.donut').bind('touchstart', show_stats );
 } else {
-    $('.donut').bind('click', show_stats() );
+    $('.donut').bind('click', show_stats );
 }
 
 $('.btn.quest_me').on('touchstart click', function(){
