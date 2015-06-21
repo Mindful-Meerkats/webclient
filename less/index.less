@@ -13,9 +13,10 @@ body, html {
 	font-family: @fontStack;
 }
 
-body { padding: 20px; &.meerkat { padding: 0;}}
+body { padding: 20px;}
 
 body.meerkats {
+	padding: 0;
 	.container {
 		background-color: #FFC042;
 	}
@@ -29,6 +30,9 @@ body.meerkats {
 	border-radius: 4px;
 	padding: 20px;
 	text-align: center;
+	@media screen and (max-width: 560px) {
+		padding: 0 !important;
+	}
 }
 
 
@@ -47,7 +51,6 @@ body.meerkats {
 .app_window {
 	width: 400px;
 	height: 600px;
-
 }
 
 @import './variables.less';

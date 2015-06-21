@@ -31,7 +31,7 @@ util.stringify = function(obj, k){
 	}
 	if( obj instanceof Array ){
         obj = '[' + obj.map( function(e,i){ return util.stringify(e); } ) + ']';
-    }        
+    }
     else if( typeof obj === 'object' ){
 		var result = [];
 		Object.keys( obj ).forEach( function(nk){
@@ -55,4 +55,18 @@ return function(obj){
 	});
 	return all;
 }}
+
+var is_mobile = ((window.innerWidth > 560 ) ? false : true );
+
+var calculateAspectRatioFit = function(srcWidth, srcHeight, maxWidth, maxHeight) {
+
+    var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+    if( maxWidth > 361 ){
+    	return { width: srcWidth*ratio, height: srcHeight*ratio };
+    }else {
+		return { width: 360, height: 574 };
+    }
+}
+
+var screenSize = calculateAspectRatioFit( 320, 568, window.innerWidth, window.innerHeight );
 

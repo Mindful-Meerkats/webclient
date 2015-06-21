@@ -39,7 +39,7 @@ var meerkat_images = [
     "happiness/front2/+1.png",
     "happiness/front2/0.png",
     "happiness/front2/_1.png",
- 
+
     "skins/default/eyesfur.png",
     "skins/default/sweatthrift.png",
     "skins/default/eyes.png",
@@ -51,7 +51,7 @@ var image_cache = null;
 var preload_images = function( f ){
     if( image_cache !== null ){ f(); return }
     image_cache = {};
-    var baseUrl = config.assetServer(); 
+    var baseUrl = config.assetServer();
     counter = meerkat_images.length;
     meerkat_images.forEach( function( fn ){
         var img = new Image();
@@ -129,10 +129,10 @@ var color_map = {
     community: { good: "#8D2044"  },
     thriftness:{ good: "#504D07"  },
     pawprint:  { good: "#EE8409"  },
-    
+
 };
 
-// old style 
+// old style
 var color_map = {
     pawprint:  { good: "rgba(255, 198, 59,1)"  },
     thriftness:{ good: "rgba(208, 207, 236,1)"  },
@@ -151,28 +151,28 @@ var color_map = {
     community: { good: "#0a0d9c"  },
     thriftness:{ good: "#5b9c0a"  },
     pawprint:  { good: "#fae300"  }
-    
+
 };
 
 // rainbow minus one purple
 var color_map = {
     fitness:   { good: "#cc0000" },
     wellbeing: { good: "#990a9c"  },
-    wisdom:    { good: "#0a0d9c"  }, 
+    wisdom:    { good: "#0a0d9c"  },
     community: { good: "#5b9c0a"  },
     thriftness:{ good: "#fae300"  },
     pawprint:  { good: "#ed5f21"  }
 };
 
-// ralf rainbow 
+// ralf rainbow
 var color_map = {
     fitness:   { good:  "#5fc2f1" },
     wellbeing: { good: "#E3B505"   },
     wisdom:    { good: "#cfd40a"   },
     community: { good:  "#58cd3e" },
     thriftness:{ good:  "#0c5c7a" },
-    pawprint:  { good: "#b84a49" } 
-    
+    pawprint:  { good: "#b84a49" }
+
 };
 
 // ralf rainbow resorted
@@ -182,8 +182,8 @@ var color_map = {
     wisdom:    { good:  "#58cd3e"  },
     community: { good:  "#cfd40a"  },
     thriftness:{ good: "#E3B505"  },
-    pawprint:  { good: "#b84a49" } 
-    
+    pawprint:  { good: "#b84a49" }
+
 };
 
 
@@ -194,7 +194,7 @@ var color_map = {
     pawprint:    { good:  "#58cd3e"  },
     community: { good:  "#cfd40a"  },
     wellbeing:{ good: "#E3B505"  },
-    thriftness:  { good: "#b84a49" } 
+    thriftness:  { good: "#b84a49" }
 };
 
 var happiness = function( scores ){
@@ -214,7 +214,7 @@ var limit = function(a){
 var donut = function( w, h, scores ){
 
     d3.select("svg.donut").selectAll("g").remove();
-    
+
     var width = w, height = h, radius = Math.min(width, height) / 2;
     var pie = d3.layout.pie().sort(null).value(function(d) { return d; });
 
@@ -235,7 +235,7 @@ var donut = function( w, h, scores ){
                 .style("fill", function(d, i) { return [ color_map[k].good, "rgba(0, 0, 0,0.2)" ][i] })
                 .style("stroke", function(d,i){ return "rgba(0,0,0,0.5)" });
     });
-    
+
     var happy = happiness( scores );
     var clip = svg.append("defs")
     .append("clipPath")
@@ -245,21 +245,26 @@ var donut = function( w, h, scores ){
     .attr("height",200)
     .attr("x",-100)
     .attr("y",(radius*0.6*(0.5-happy.score)));
-    
-    
+
+
     svg.append("circle").attr("r", radius * 0.4 ).attr("fill", "grey").attr('clip-path',"url(#clip)");
-    svg.append("text").attr("x", -20 ).attr("fill","white").attr("stroke", "black").attr("y", 8).text( Math.round(happy.score * 99) + "%" );  
-     
-    
+    svg.append("text").attr("x", -20 ).attr("fill","white").attr("stroke", "black").attr("y", 8).text( Math.round(happy.score * 99) + "%" );
+
+
 };
 
 
 
-var render_meerkat_image = function( ctx, fn ){ 
+var render_meerkat_image = function( ctx, fn ){
    img = new Image();
    img.onload = function(){
         console.log( fn );
-        ctx.drawImage(img, Math.random() * 25, Math.random()*25, 320, 568);
+        if( !is_mobile ){
+            ctx.drawImage(img, Math.random() * 25, Math.random()*25, 320, 568);
+        }else {
+            ctx.drawImage(img, Math.random() * 25, Math.random()*25, screenSize.width, screenSize.height);
+        }
+
     };
     //img.src = "http://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/280px-PNG_transparency_demonstration_1.png"; //fn;
     img.src = fn;
@@ -271,44 +276,58 @@ var start_render = function( meerkat ){
     preload_images( function(){
         current_meerkat = meerkat;
         var loop = function(){
-            render_meerkat( current_meerkat, !first );    
+            render_meerkat( current_meerkat, !first );
             setTimeout( loop, 1000 );
             first = false;
         };
-        loop(); 
+        loop();
     });
 };
 
 var render_meerkat = function( meerkat, skip_donut ){
     current_meerkat = meerkat;
-    
+
     var images = meerkat_to_images( meerkat );
-    var baseUrl = config.assetServer(); 
+    var baseUrl = config.assetServer();
     var img, e;
 
     e = document.getElementById('meerkat_canvas');
+    if( is_mobile ){
+        e.width = screenSize.width;
+        e.height = screenSize.height;
+    }
     var ctx = e.getContext('2d');
     var animation_frame = Math.floor( Math.random() * 10 );
-    
+
     for( var i=0; i<meerkat_images.length; i++ ){
         if( images.indexOf( meerkat_images[i] ) !== -1  || (meerkat_images[i].substr(0,6+meerkat.skin.meerkat.length) === "skins/" + meerkat.skin.meerkat)  ){
             var anim = meerkat_images[i].split('_');
             if( anim.length > 1 ){
-                var max_anim = parseInt( anim[2].replace('.png', ''), 10);    
+                var max_anim = parseInt( anim[2].replace('.png', ''), 10);
                 var cur_anim = parseInt(anim[1],10);
                 if( ( animation_frame % max_anim ) + 1 === cur_anim ){
-                    ctx.drawImage( image_cache[meerkat_images[i]], 0, 0, 320, 568);       
+                    if( !is_mobile ){
+                        ctx.drawImage( image_cache[meerkat_images[i]], 0, 0, 320, 568);
+                    }else {
+                        ctx.drawImage( image_cache[meerkat_images[i]], 0, 0, screenSize.width, screenSize.height);
+                    }
                 }
             } else if( anim.length === 1 ){
-                ctx.drawImage( image_cache[meerkat_images[i]], 0, 0, 320, 568);       
+                if( !is_mobile ){
+                    ctx.drawImage( image_cache[meerkat_images[i]], 0, 0, 320, 568);
+                }else {
+                    ctx.drawImage( image_cache[meerkat_images[i]], 0, 0, screenSize.width, screenSize.height);
+                }
+
             }
-            
+
         }
     }
     if( !skip_donut )  donut( 150, 150, meerkat.scores );
 };
 
 var quest_showing = false;
+var stats_showing = false;
 var quest_list_showing = false;
 var quest_list_quest_showing = false;
 var show_quest = function(){
@@ -321,23 +340,41 @@ var show_quest = function(){
         $('.pop_up.quest').addClass('visible');
     } else {
         setTimeout( show_quest, 5000 );
-    } 
+    }
 
 };
 
-$('.btn.quest_me').click( function(){
+var show_stats = function(){
+// (80/5) * points + 20
+    if( !stats_showing && !quest_list_quest_showing && !quest_list_showing && !quest_showing && api.meerkat.quests.awaiting.length > 0 ){
+        stats_showing = true;
+        alert( "triiggered!!!!" );
+        for( var score in api.meerkat.scores ){
+            console.log( score );
+            $('.pop_up.stats').append('<div class="stat '+ score +'"><span>'+ score +'</span></div>');
+            $('.pop_up.stats').addClass('visible');
+        }
+    }
+};
+
+$('.donut').on('touchstart click', function( e ) {
+    console.log( e );
+    show_stats();
+});
+
+$('.btn.quest_me').on('touchstart click', function(){
     api.get('/quests/new/' + api.meerkat.id, function( data ){
         api.meerkat.quests.awaiting.push( data );
         $('.pop_up').removeClass('visible');
         quest_list_showing = false;
         quest_list_quest_showing = false;
-        quest_showing = false;        
+        quest_showing = false;
         show_quest();
         api.save();
     });
 });
 
-$('.btn.accept').click( function(){
+$('.btn.accept').on('touchstart click', function(){
     quest_showing = false;
     var q = api.meerkat.quests.awaiting[0];
     api.meerkat.quests.accepted.push( q );
@@ -347,7 +384,7 @@ $('.btn.accept').click( function(){
     api.save();
 });
 
-$('.btn.decline').click( function(){
+$('.btn.decline').on('touchstart click', function(){
     quest_showing = false;
     var q = api.meerkat.quests.awaiting[0];
     api.meerkat.quests.declined.push( q );
@@ -374,9 +411,9 @@ var render_accepted = function(){
     s.text( function(d){ return d.title }).on('click', handler );
     s.enter().append('li').text( function(d){ return d.title }).on('click', handler );
     s.exit().remove();
-}; 
+};
 
-$('.btn.complete').click( function(){
+$('.btn.complete').on('touchstart click', function(){
    quest_list_quest_showing = false;
    $('.pop_up.quest_list_quest').removeClass('visible');
    $('.pop_up.quest_list').addClass('visible');
@@ -394,7 +431,7 @@ $('.btn.complete').click( function(){
    render_meerkat( api.meerkat );
 });
 
-$('.btn.forfeit').click( function(){
+$('.btn.forfeit').on('touchstart click', function(){
    quest_list_quest_showing = false;
    $('.pop_up.quest_list_quest').removeClass('visible');
    $('.pop_up.quest_list').addClass('visible');
@@ -412,7 +449,7 @@ $('.btn.forfeit').click( function(){
    render_meerkat( api.meerkat );
 });
 
-$('.ui_button.quests').click(function(){
+$('.ui_button.quests').on('touchstart click',function(){
     if( !quest_list_showing && !quest_showing ){
         quest_list_showing = true;
         $('.pop_up.quest_list').addClass('visible');
@@ -420,14 +457,14 @@ $('.ui_button.quests').click(function(){
     }
 });
 
-$('.close').click( function(){
+$('.close').on('touchstart click', function(){
    $('.pop_up').removeClass('visible');
    quest_list_showing = false;
    quest_list_quest_showing = false;
    quest_showing = false;
 });
 
-$('div.meerkat').click( function(){
+$('div.meerkat').on('touchstart click', function(){
    $('.pop_up').removeClass('visible');
    quest_list_showing = false;
    quest_list_quest_showing = false;
@@ -442,4 +479,4 @@ var auto_refresh = function(){
         });
         setTimeout( auto_refresh, 15000 );
     }
-};    
+};
