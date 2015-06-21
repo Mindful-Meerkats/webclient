@@ -351,9 +351,9 @@ var show_quest = function(){
 var show_stats = function(){
     if( !showing_anything_yet ){
         stats_showing = true;
+        $('.pop_up.stats .stat_container').empty();
         for( var score in api.meerkat.scores ){
             var fill = calcScoreInPrecentage( api.meerkat.scores[ score ] );
-            $('.pop_up.stats .stat_container').empty();
             $('.pop_up.stats .stat_container').append(
                 '<span class="label">'+ score +'</span><div class="stat '+ score +'"><span style="width:'+ fill +'%;" class="progress">'+ fill +'%</span></div>'
                 );
