@@ -71,5 +71,5 @@ var calculateAspectRatioFit = function(srcWidth, srcHeight, maxWidth, maxHeight)
 }
 
 
-var screenSize = calculateAspectRatioFit( 320, 568, window.innerWidth, window.innerHeight );
+var screenSize = calculateAspectRatioFit( 490, 869, window.innerWidth, window.innerHeight );
 
