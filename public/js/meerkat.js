@@ -355,20 +355,20 @@ var show_stats = function(){
 
         var scores = [];
 
-        scores[0] = api.meerkat.scores.happiness;
+        scores[0] = {"title": "happiness", "val": api.meerkat.scores.happiness };
 
-        scores[1] = api.meerkat.scores.fitness;
-        scores[2] = api.meerkat.scores.wellbeing;
-        scores[3] = api.meerkat.scores.wisdom;
+        scores[1] = {"title": "fitness", "val": api.meerkat.scores.fitness };
+        scores[2] = {"title": "wellbeing", "val": api.meerkat.scores.wellbeing };
+        scores[3] = {"title": "wisdom", "val": api.meerkat.scores.wisdom };
 
-        scores[4] = api.meerkat.scores.community;
-        scores[5] = api.meerkat.scores.thriftiness;
-        scores[6] = api.meerkat.scores.pawprint;
+        scores[4] = {"title": "community", "val": api.meerkat.scores.community };
+        scores[5] = {"title": "thriftiness", "val": api.meerkat.scores.thriftness };
+        scores[6] = {"title": "pawprint", "val": api.meerkat.scores.pawprint };
 
         scores.forEach(function( score, i ){
-            var fill = calcScoreInPrecentage( scores[ i ] );
+            var fill = calcScoreInPrecentage( score.val );
             $('.pop_up.stats .stat_container').append(
-                '<span class="label">'+ score +'</span><div class="stat '+ score +'"><span style="width:'+ fill +'%;" class="progress"></span><span class="percentage">'+ fill +'%</span></div>'
+                '<span class="label">'+ score.title +'</span><div class="stat '+ score.title +'"><span style="width:'+ fill +'%;" class="progress"></span><span class="percentage">'+ fill +'%</span></div>'
                 );
             $('.pop_up.stats').addClass('visible');
         });
