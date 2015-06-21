@@ -347,7 +347,6 @@ var show_quest = function(){
 };
 
 var show_stats = function(){
-// (80/5) * points + 20
     if( !showing_anything_yet ){
         stats_showing = true;
         for( var score in api.meerkat.scores ){
