@@ -63,7 +63,7 @@ var calcScoreInPrecentage = function( score ){ return  (80/5) * score + 20 };
 var calculateAspectRatioFit = function(srcWidth, srcHeight, maxWidth, maxHeight) {
 
     var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
-    if( maxWidth < 361 ){
+    if( maxWidth > 361 ){
     	return { width: srcWidth*ratio, height: srcHeight*ratio };
     }else {
 		return { width: 490, height: 869 };
