@@ -260,7 +260,7 @@ var render_meerkat_image = function( ctx, fn ){
    img.onload = function(){
         console.log( fn );
         if( !is_mobile ){
-            ctx.drawImage(img, Math.random() * 25, Math.random()*25, 320, 568);
+            ctx.drawImage(img, Math.random() * 25, Math.random()*25, 490, 869);
         }else {
             ctx.drawImage(img, Math.random() * 25, Math.random()*25, screenSize.width, screenSize.height);
         }
@@ -308,14 +308,14 @@ var render_meerkat = function( meerkat, skip_donut ){
                 var cur_anim = parseInt(anim[1],10);
                 if( ( animation_frame % max_anim ) + 1 === cur_anim ){
                     if( !is_mobile ){
-                        ctx.drawImage( image_cache[meerkat_images[i]], 0, 0, 320, 568);
+                        ctx.drawImage( image_cache[meerkat_images[i]], 0, 0, 490, 869);
                     }else {
                         ctx.drawImage( image_cache[meerkat_images[i]], 0, 0, screenSize.width, screenSize.height);
                     }
                 }
             } else if( anim.length === 1 ){
                 if( !is_mobile ){
-                    ctx.drawImage( image_cache[meerkat_images[i]], 0, 0, 320, 568);
+                    ctx.drawImage( image_cache[meerkat_images[i]], 0, 0, 490, 869);
                 }else {
                     ctx.drawImage( image_cache[meerkat_images[i]], 0, 0, screenSize.width, screenSize.height);
                 }
