@@ -446,7 +446,7 @@ var render_accepted = function(){
         s.enter().append('li').text( function(d){ return d.title }).on('click', handler );
         s.exit().remove();
     }else {
-        $('.pop_up.quest_list').append('<p class="no_quests">You do not have any quests in progress at this time.</p>');
+        $('.pop_up.quest_list ul').append('<p class="no_quests">You do not have any quests in progress at this time.</p>');
     }
 
 };
