@@ -233,7 +233,7 @@ var donut = function( w, h, scores ){
 
         g.append("path").attr("d", arc)
                 .style("fill", function(d, i) { return [ color_map[k].good, "rgba(0, 0, 0,0.2)" ][i] })
-                .style("stroke", function(d,i){ return "rgba(0,0,0,0.5)" }).append("text").text( k );;
+                .style("stroke", function(d,i){ return "rgba(0,0,0,0.5)" }).append("text").attr("d", arc ).text( k );;
     });
 
     var happy = happiness( scores );
