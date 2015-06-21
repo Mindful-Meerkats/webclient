@@ -225,7 +225,7 @@ var donut = function( w, h, scores ){
         if( scores[a] > scores[b] ) return -1;
         return 0;
     })*/.forEach( function(k,i){
-        var arc = d3.svg.arc().outerRadius(radius * ((i+4)/10)).innerRadius(radius * ((i+3)/10));
+        var arc = d3.svg.arc().outerRadius(radius * ((i+5)/10)).innerRadius(radius * ((i+4)/10));
         var g = svg.selectAll(".arc." + k )
                    .data(pie([limit(scores[k]+5),10-limit(scores[k]+5)]))
                 .enter().append("g")
@@ -241,8 +241,8 @@ var donut = function( w, h, scores ){
     .append("clipPath")
     .attr("id","clip")
     .append("rect")
-    .attr("width",200)
-    .attr("height",200)
+    .attr("width",100)
+    .attr("height",100)
     .attr("x",-100)
     .attr("y",(radius*0.6*(0.5-happy.score)));
 
@@ -323,7 +323,7 @@ var render_meerkat = function( meerkat, skip_donut ){
 
         }
     }
-    if( !skip_donut )  donut( 250, 250, meerkat.scores );
+    if( !skip_donut )  donut( 150, 150, meerkat.scores );
 };
 
 var quest_showing = false;
