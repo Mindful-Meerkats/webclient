@@ -247,7 +247,7 @@ var donut = function( w, h, scores ){
     .attr("y",(radius*0.6*(0.5-happy.score)));
 
 
-    svg.append("circle").attr("r", radius * 0.4 ).attr("fill", "grey").attr('clip-path',"url(#clip)");
+    svg.append("circle").attr("r", radius * 0.2 ).attr("fill", "grey").attr('clip-path',"url(#clip)");
     svg.append("text").attr("x", -20 ).attr("fill","white").attr("stroke", "black").attr("y", 8).text( Math.round(happy.score * 99) + "%" );
 
 
