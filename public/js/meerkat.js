@@ -275,6 +275,7 @@ var start_render = function( meerkat ){
     var first = true;
     preload_images( function(){
         current_meerkat = meerkat;
+        $('.loading').hide();
         var loop = function(){
             render_meerkat( current_meerkat, !first );
             setTimeout( loop, 1000 );
@@ -367,9 +368,20 @@ var show_stats = function(){
 
         scores.forEach(function( score, i ){
             var fill = calcScoreInPrecentage( score.val );
-            $('.pop_up.stats .stat_container').append(
-                '<span class="label">'+ score.title +'</span><div class="stat '+ score.title +'"><span style="width:'+ fill +'%;" class="progress"></span><span class="percentage">'+ fill +'%</span></div>'
+            if( score.title === 'happiness'){
+                $('.pop_up.stats .stat_container').append(
+                    '<span class="label">'+ score.title +'</span><div class="stat '+ score.title +'"><span style="width:'+ fill +'%;" class="progress"></span><span class="percentage">'+ fill +'%</span></div><br>'
+                    );
+            }else if( score.title === 'wisdom' ){
+                $('.pop_up.stats .stat_container').append(
+                    '<span class="label">'+ score.title +'</span><div class="stat '+ score.title +'"><span style="width:'+ fill +'%;" class="progress"></span><span class="percentage">'+ fill +'%</span></div><br>'
+                    );
+            }else {
+                $('.pop_up.stats .stat_container').append(
+                    '<span class="label">'+ score.title +'</span><div class="stat '+ score.title +'"><span style="width:'+ fill +'%;" class="progress"></span><span class="percentage">'+ fill +'%</span></div>'
                 );
+            }
+
             $('.pop_up.stats').addClass('visible');
         });
     }

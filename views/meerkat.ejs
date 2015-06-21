@@ -8,6 +8,7 @@
     <link rel="icon" sizes="192x192" href="/img/icon.jpg">
 </head>
 <body class="meerkats">
+<div class="loading"></div>
 <div class="container">
 
     <div class="meerkat_container_container">
@@ -76,7 +77,6 @@
                             window.location.replace("/register");
                         } else {
                             start_render( data.meerkat );
-                            setTimeout( show_quest, 5000 );
                             setTimeout( auto_refresh, 15000 );
                         }
                     },
