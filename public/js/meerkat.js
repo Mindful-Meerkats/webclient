@@ -330,6 +330,7 @@ var quest_showing = false;
 var stats_showing = false;
 var quest_list_showing = false;
 var quest_list_quest_showing = false;
+var showing_anything_yet = ( !stats_showing && !quest_list_quest_showing && !quest_list_showing && !quest_showing ) ? true : false;
 var show_quest = function(){
 
     if( !quest_list_quest_showing && !quest_list_showing && !quest_showing && api.meerkat.quests.awaiting.length > 0 ){
@@ -346,7 +347,7 @@ var show_quest = function(){
 
 var show_stats = function(){
 // (80/5) * points + 20
-    if( !stats_showing && !quest_list_quest_showing && !quest_list_showing && !quest_showing && api.meerkat.quests.awaiting.length > 0 ){
+    if( !showing_anything_yet ){
         stats_showing = true;
         alert( "triiggered!!!!" );
         for( var score in api.meerkat.scores ){
