@@ -330,7 +330,8 @@ var quest_showing = false;
 var stats_showing = false;
 var quest_list_showing = false;
 var quest_list_quest_showing = false;
-var showing_anything_yet = ( !stats_showing && !quest_list_quest_showing && !quest_list_showing && !quest_showing ) ? false : true;
+var completed_showing = false;
+var showing_anything_yet = ( !completed_showing && !stats_showing && !quest_list_quest_showing && !quest_list_showing && !quest_showing ) ? false : true;
 
 var show_quest = function(){
 
@@ -339,6 +340,7 @@ var show_quest = function(){
         var q = api.meerkat.quests.awaiting[0];
         $('.pop_up.quest h1').text( q.title );
         $('.pop_up.quest p').text( q.description );
+        $('.pop_up.quest .btn').show();
         $('.pop_up.quest').addClass('visible');
     } else {
         setTimeout( show_quest, 5000 );
@@ -356,6 +358,21 @@ var show_stats = function(){
                 );
             $('.pop_up.stats').addClass('visible');
         }
+    }
+};
+
+var show_completed = function( quest ){
+    if( !showing_anything_yet ){
+        completed_showing = true;
+        var q = quest;
+        $('.pop_up.quest h1').text( q.title );
+        $('.pop_up.quest p').text( q.completed_text );
+        $('.pop_up.quest .btn').hide();
+        $('.pop_up.quest').addClass('visible');
+
+
+    }else {
+        setTimeout(show_completed( quest ), 1000 );
     }
 };
 
@@ -431,6 +448,7 @@ $('.btn.complete').on('touchstart click', function(){
    quest_list_quest_showing = false;
    quest_showing = false;
    render_meerkat( api.meerkat );
+   show_completed( current_quest );
 });
 
 $('.btn.forfeit').on('touchstart click', function(){
