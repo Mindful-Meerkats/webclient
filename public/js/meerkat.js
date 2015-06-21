@@ -258,15 +258,8 @@ var donut = function( w, h, scores ){
 var render_meerkat_image = function( ctx, fn ){
    img = new Image();
    img.onload = function(){
-        console.log( fn );
-        if( !is_mobile ){
-            ctx.drawImage(img, Math.random() * 25, Math.random()*25, 490, 869);
-        }else {
-            ctx.drawImage(img, Math.random() * 25, Math.random()*25, screenSize.width, screenSize.height);
-        }
-
+        ctx.drawImage(img, Math.random() * 25, Math.random()*25, screenSize.width, screenSize.height);
     };
-    //img.src = "http://upload.wikimedia.org/wikipedia/commons/thumb/4/47/PNG_transparency_demonstration_1.png/280px-PNG_transparency_demonstration_1.png"; //fn;
     img.src = fn;
 };
 
@@ -293,10 +286,8 @@ var render_meerkat = function( meerkat, skip_donut ){
     var img, e;
 
     e = document.getElementById('meerkat_canvas');
-    if( is_mobile ){
-        e.width = screenSize.width;
-        e.height = screenSize.height;
-    }
+    e.width = screenSize.width;
+    e.height = screenSize.height;
     var ctx = e.getContext('2d');
     var animation_frame = Math.floor( Math.random() * 10 );
 
