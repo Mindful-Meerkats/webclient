@@ -374,7 +374,7 @@ var show_completed = function( quest ){
         setTimeout(show_completed( quest ), 1000 );
     }
 };
-
+var flag = false;
 $('.donut').on('touchstart click', function() {
     if (!flag) {
         flag = true;
