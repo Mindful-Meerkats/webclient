@@ -376,8 +376,12 @@ var show_completed = function( quest ){
 };
 
 $('.donut').on('touchstart click', function() {
-    $( this ).off('touchstart click');
-    show_stats();
+    if (!flag) {
+        flag = true;
+        setTimeout(function(){ flag = false; }, 200);
+        show_stats();
+    }
+    return false;
 });
 
 $('.btn.quest_me').on('touchstart click', function(){
