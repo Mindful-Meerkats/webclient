@@ -375,7 +375,9 @@ var show_completed = function( quest ){
     }
 };
 
-$('.donut').bind( "tap", show_stats );
+if( is_mobile ) $('.donut').bind('touchstart', show_stats() );
+else $('.donut').bind('click', show_stats() );
+
 
 $('.btn.quest_me').on('touchstart click', function(){
     api.get('/quests/new/' + api.meerkat.id, function( data ){
@@ -479,7 +481,6 @@ $('.close').on('touchstart click', function(){
    quest_list_quest_showing = false;
    quest_showing = false;
    stats_showing = false;
-   $('.donut').on('touchstart click', show_stats);
 });
 
 $('div.meerkat').on('touchstart click', function(){
