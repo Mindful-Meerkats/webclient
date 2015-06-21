@@ -66,7 +66,7 @@ var calculateAspectRatioFit = function(srcWidth, srcHeight, maxWidth, maxHeight)
     if( maxWidth > 361 ){
     	return { width: srcWidth*ratio, height: srcHeight*ratio };
     }else {
-		return { width: 360, height: 574 };
+		return { width: 490, height: 869 };
     }
 }
 
