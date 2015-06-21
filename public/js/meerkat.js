@@ -352,13 +352,26 @@ var show_stats = function(){
     if( !showing_anything_yet ){
         stats_showing = true;
         $('.pop_up.stats .stat_container').empty();
-        for( var score in api.meerkat.scores ){
-            var fill = calcScoreInPrecentage( api.meerkat.scores[ score ] );
+
+        var scores = [];
+
+        scores[0] = api.meerkat.scores.happiness;
+
+        scores[1] = api.meerkat.scores.fitness;
+        scores[2] = api.meerkat.scores.wellbeing;
+        scores[3] = api.meerkat.scores.wisdom;
+
+        scores[4] = api.meerkat.scores.community;
+        scores[5] = api.meerkat.scores.thriftiness;
+        scores[6] = api.meerkat.scores.pawprint;
+
+        scores.forEach(function( score, i ){
+            var fill = calcScoreInPrecentage( scores[ i ] );
             $('.pop_up.stats .stat_container').append(
                 '<span class="label">'+ score +'</span><div class="stat '+ score +'"><span style="width:'+ fill +'%;" class="progress"></span><span class="percentage">'+ fill +'%</span></div>'
                 );
             $('.pop_up.stats').addClass('visible');
-        }
+        });
     }
 };
 
