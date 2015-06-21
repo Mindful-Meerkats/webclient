@@ -229,7 +229,8 @@ var donut = function( w, h, scores ){
         var g = svg.selectAll(".arc." + k )
                    .data(pie([limit(scores[k]+5),10-limit(scores[k]+5)]))
                 .enter().append("g")
-                    .attr("class", "arc " + k);
+                    .attr("class", "arc " + k)
+                    .append("text").text( k );
 
         g.append("path").attr("d", arc)
                 .style("fill", function(d, i) { return [ color_map[k].good, "rgba(0, 0, 0,0.2)" ][i] })
