@@ -370,15 +370,13 @@ var show_completed = function( quest ){
         $('.pop_up.quest p').text( q.completed_text );
         $('.pop_up.quest .btn').hide();
         $('.pop_up.quest').addClass('visible');
-
-
     }else {
         setTimeout(show_completed( quest ), 1000 );
     }
 };
 
-$('.donut').on('touchstart click', function( e ) {
-    console.log( e );
+$('.donut').on('touchstart click', function() {
+    $( this ).off('touchstart click');
     show_stats();
 });
 
@@ -484,6 +482,7 @@ $('.close').on('touchstart click', function(){
    quest_list_quest_showing = false;
    quest_showing = false;
    stats_showing = false;
+   $('.donut').on('touchstart click', show_stats);
 });
 
 $('div.meerkat').on('touchstart click', function(){
