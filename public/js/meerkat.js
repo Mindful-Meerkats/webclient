@@ -330,7 +330,7 @@ var quest_showing = false;
 var stats_showing = false;
 var quest_list_showing = false;
 var quest_list_quest_showing = false;
-var showing_anything_yet = ( !stats_showing && !quest_list_quest_showing && !quest_list_showing && !quest_showing ) ? true : false;
+var showing_anything_yet = ( !stats_showing && !quest_list_quest_showing && !quest_list_showing && !quest_showing ) ? false : true;
 var show_quest = function(){
 
     if( !quest_list_quest_showing && !quest_list_showing && !quest_showing && api.meerkat.quests.awaiting.length > 0 ){
