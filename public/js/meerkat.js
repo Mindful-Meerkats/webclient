@@ -323,7 +323,7 @@ var render_meerkat = function( meerkat, skip_donut ){
 
         }
     }
-    if( !skip_donut )  donut( 150, 150, meerkat.scores );
+    if( !skip_donut )  donut( 250, 250, meerkat.scores );
 };
 
 var quest_showing = false;
