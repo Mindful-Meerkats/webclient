@@ -374,15 +374,8 @@ var show_completed = function( quest ){
         setTimeout(show_completed( quest ), 1000 );
     }
 };
-var flag = false;
-$('.donut').on('touchstart click', function() {
-    if (!flag) {
-        flag = true;
-        setTimeout(function(){ flag = false; }, 200);
-        show_stats();
-    }
-    return false;
-});
+
+$('.donut').bind( "tap", show_stats );
 
 $('.btn.quest_me').on('touchstart click', function(){
     api.get('/quests/new/' + api.meerkat.id, function( data ){
