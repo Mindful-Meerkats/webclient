@@ -225,7 +225,7 @@ var donut = function( w, h, scores ){
         if( scores[a] > scores[b] ) return -1;
         return 0;
     })*/.forEach( function(k,i){
-        var arc = d3.svg.arc().outerRadius(radius * ((i+3)/10)).innerRadius(radius * ((i+2)/10));
+        var arc = d3.svg.arc().outerRadius(radius * ((i+3)/20)).innerRadius(radius * ((i+2)/20));
         var g = svg.selectAll(".arc." + k )
                    .data(pie([limit(scores[k]+5),10-limit(scores[k]+5)]))
                 .enter().append("g")
@@ -247,7 +247,7 @@ var donut = function( w, h, scores ){
     .attr("y",(radius*0.6*(0.5-happy.score)));
 
 
-    svg.append("circle").attr("r", radius * 0.3 ).attr("fill", "grey").attr('clip-path',"url(#clip)");
+    svg.append("circle").attr("r", radius * 0.2 ).attr("fill", "grey").attr('clip-path',"url(#clip)");
     svg.append("text").attr("x", -20 ).attr("fill","white").attr("stroke", "black").attr("y", 8).text( Math.round(happy.score * 99) + "%" );
 
 
